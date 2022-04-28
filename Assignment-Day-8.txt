@@ -1,0 +1,101 @@
+1. https://github.com/rvsp/typescript-oops/blob/master/Practice/Movie.md ?
+
+Ans:
+
+I have quickly gone thru the topics
+
+2. https://github.com/rvsp/typescript-oops/blob/master/Practice/class-circle.md ?
+
+Ans:
+
+I have quickly gone thru the topics
+
+3. Write a “person” class to hold all the details ?
+
+Ans:
+
+class Person{
+  constructor(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  } get fullName(){
+    return `${this.firstName} ${this.lastName}`
+  } sayHi(){
+    return `Hi, ${this.firstName} ${this.lastName}`
+  }
+}
+
+4. write a class to calculate uber price ?
+
+Ans: Writing th
+
+index.js -
+
+<html>
+<head>
+    <title>Party Invitation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <section>
+        <h1>Party</h1>
+        <div class="info-container">
+            <span class="info-header">When</span>
+            <span class="info when">September 18, 2014 at 6:00pm</span>
+        </div>
+        <div class="info-container">
+            <span class="info-header">Where</span>
+            <span class="info where">Thinkful HQ</span>
+        </div>
+        <img class="map" src="http://maps.googleapis.com/maps/api/staticmap?center=40.7248,-73.99597&zoom=17&format=png&sensor=false&size=280x280&maptype=roadmap&style=element:geometry.fill|color:0xf4f4f4&markers=color:red|40.7248,-73.99597&scale=2" alt="">
+        <div class="button">
+            <p id="time">ESTIMATING TIME</p>
+        </div>
+    </section>
+
+<script src="js/jquery-2.1.1.min.js"></script>
+<script src="js/uber.js"></script>
+</body>
+
+uber.js - 
+
+var uberClientId = "RxGbzH***************"
+    , uberServerToken = "h_hqd3L4***************";
+
+// Create variables to store latitude and longitude
+var userLatitude
+    , userLongitude
+  , partyLatitude = 19.3256725
+  , partyLongitude = -43.1579731;
+
+
+
+navigator.geolocation.watchPosition(function(position) {
+    // Update latitude and longitude
+    userLatitude = position.coords.latitude;
+    userLongitude = position.coords.longitude;
+
+  // Query Uber API if needed
+    getEstimatesForUserLocation(userLatitude, userLongitude);
+});
+
+function getEstimatesForUserLocation(latitude,longitude) {
+  $.ajax({
+    url: "https://api.uber.com/v1/estimates/price",
+    headers: {
+        Authorization: "KA.ey**********************************************************************************************************************************" + uberServerToken
+    },
+    data: { 
+      start_latitude: latitude,
+      start_longitude: longitude,
+      end_latitude: partyLatitude,
+      end_longitude: partyLongitude
+    },
+    success: function(result) {
+      console.log(result);
+    }
+  });
+}
